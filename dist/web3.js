@@ -5032,7 +5032,7 @@ Method.prototype.toPayload = function (args) {
     var call = this.getCall(args);
     var callback = this.extractCallback(args);
     var newArgs = utils.isFunction(args[args.length - 1]) ? args.slice(0,-1) : args;
-    var params = this.formatInput(args);
+    var params = this.formatInput(newArgs);
     this.validateArgs(params);
 
     return {
