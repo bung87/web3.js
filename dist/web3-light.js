@@ -1887,8 +1887,8 @@ var unitMap = {
     'microether':   '1000000000000',
     'micro':        '1000000000000',
     'finney':       '1000000000000000',
-    'milliether':    '1000000000000000',
-    'milli':         '1000000000000000',
+    'milliether':   '1000000000000000',
+    'milli':        '1000000000000000',
     'ether':        '1000000000000000000',
     'kether':       '1000000000000000000000',
     'grand':        '1000000000000000000000',
@@ -2156,7 +2156,6 @@ var fromWei = function(number, unit) {
  * - kwei       femtoether     babbage
  * - mwei       picoether      lovelace
  * - gwei       nanoether      shannon      nano
- * - --         microether     szabo        micro
  * - --         microether     szabo        micro
  * - --         milliether     finney       milli
  * - ether      --             --
@@ -5032,6 +5031,7 @@ Method.prototype.formatOutput = function (result) {
 Method.prototype.toPayload = function (args) {
     var call = this.getCall(args);
     var callback = this.extractCallback(args);
+    var newArgs = utils.isFunction(args[args.length - 1]) ? args.slice(0,-1) : args;
     var params = this.formatInput(args);
     this.validateArgs(params);
 
