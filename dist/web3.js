@@ -4038,7 +4038,8 @@ SolidityFunction.prototype.toPayload = function (args) {
     if (args.length > this._inputTypes.length && utils.isObject(args[args.length -1])) {
         options = args[args.length - 1];
     }
-    this.validateArgs(args);
+    var newArgs = utils.isFunction(args[args.length - 1]) ? args.slice(0,-1) : args;
+    this.validateArgs(newArgs);
     options.to = this._address;
     options.data = '0x' + this.signature() + coder.encodeParams(this._inputTypes, args);
     return options;
