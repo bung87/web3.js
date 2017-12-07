@@ -4038,9 +4038,7 @@ SolidityFunction.prototype.toPayload = function (args) {
     if (args.length > this._inputTypes.length && utils.isObject(args[args.length -1])) {
         options = args[args.length - 1];
     }
-    var callback = this.extractCallback(args);
     this.validateArgs(args);
-    options.callback = callback;
     options.to = this._address;
     options.data = '0x' + this.signature() + coder.encodeParams(this._inputTypes, args);
     return options;
@@ -5065,6 +5063,11 @@ Method.prototype.buildCall = function() {
     var send = function () {
         var payload = method.toPayload(Array.prototype.slice.call(arguments));
         if (payload.callback) {
+            return method.requestManager.sendAsync(payload, function (err, result) {
+                payload.callback(err, method.formatOutput(result));
+            });
+        }else if(utils.isFunction(args[args.length - 1])){
+            var callback = this.extractCallback(args);
             return method.requestManager.sendAsync(payload, function (err, result) {
                 payload.callback(err, method.formatOutput(result));
             });
