@@ -4156,7 +4156,7 @@ SolidityFunction.prototype.getData = function () {
         return payload.data;
     }
 
-    callback(payload.data);
+    callback(undefined,payload.data);
 };
 
 /**
