@@ -4039,7 +4039,7 @@ SolidityFunction.prototype.toPayload = function (args) {
         options = args[args.length - 1];
     }
     var callback = this.extractCallback(args);
-    this.validateArgs(newArgs);
+    this.validateArgs(args);
     options.callback = callback;
     options.to = this._address;
     options.data = '0x' + this.signature() + coder.encodeParams(this._inputTypes, args);
